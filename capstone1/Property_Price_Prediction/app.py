@@ -519,7 +519,15 @@ def main():
         st.write(
             "This application was built using Streamlit as the final front-end for the Property Price Prediction Capstone Project."
         )
-        st.write("It demonstrates how to leverage:")
+        st.markdown("### 🎯 Objective")
+        st.write(
+            "The objective of this project is to develop a machine learning model that accurately predicts house prices "
+            "based on various features such as location, property size, construction status, and more. "
+            "This model will help potential buyers and real estate agents estimate property values, "
+            "aiding in better decision-making and price forecasting."
+        )
+
+        st.markdown("### 🛠 Technologies & Features")
         st.markdown(
             "- **Streamlit caching** for loading datasets and machine learning models."
         )
