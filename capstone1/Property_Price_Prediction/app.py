@@ -1,3 +1,5 @@
+import os
+
 import joblib
 import pandas as pd
 import plotly.express as px
@@ -15,12 +17,14 @@ MODEL_FILES = {
     "LightGBM": "lightgbm_model.pkl",
 }
 
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+
 
 @st.cache_data
 def load_data():
     # Attempt to load the data if it exists
     try:
-        df = pd.read_csv("House Price.csv")
+        df = pd.read_csv(os.path.join(SCRIPT_DIR, "House Price.csv"))
         return df
     except FileNotFoundError:
         return None
@@ -30,16 +34,20 @@ def load_data():
 def load_preprocessors():
     # Load the saved scaler and locality map
     try:
-        scaler = joblib.load("scaler.pkl")
-        locality_map = joblib.load("locality_freq_map.pkl")
+        scaler = joblib.load(os.path.join(SCRIPT_DIR, "scaler.pkl"))
+        locality_map = joblib.load(os.path.join(SCRIPT_DIR, "locality_freq_map.pkl"))
         # Also load the list of columns the scaler was trained on
-        scaler_cols = joblib.load("scaler_cols.pkl")
+        scaler_cols = joblib.load(os.path.join(SCRIPT_DIR, "scaler_cols.pkl"))
         # Load the final list of model features
-        model_features = joblib.load("model_features.pkl")
+        model_features = joblib.load(os.path.join(SCRIPT_DIR, "model_features.pkl"))
         # Load the categories for categorical features
-        posted_by_categories = joblib.load("posted_by_categories.pkl")
-        bhk_or_rk_categories = joblib.load("bhk_or_rk_categories.pkl")
-        city_categories = joblib.load("city_categories.pkl")
+        posted_by_categories = joblib.load(
+            os.path.join(SCRIPT_DIR, "posted_by_categories.pkl")
+        )
+        bhk_or_rk_categories = joblib.load(
+            os.path.join(SCRIPT_DIR, "bhk_or_rk_categories.pkl")
+        )
+        city_categories = joblib.load(os.path.join(SCRIPT_DIR, "city_categories.pkl"))
         return (
             scaler,
             locality_map,
@@ -59,7 +67,7 @@ def load_models():
     models = {}
     for model_name, filename in MODEL_FILES.items():
         try:
-            models[model_name] = joblib.load(filename)
+            models[model_name] = joblib.load(os.path.join(SCRIPT_DIR, filename))
         except (FileNotFoundError, ModuleNotFoundError, ImportError):
             pass  # Skip if file not found or module (like catboost) is missing
 
