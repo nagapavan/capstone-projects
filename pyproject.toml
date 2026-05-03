@@ -2,7 +2,7 @@
 name = "capstone-projects"
 version = "0.1.0"
 description = "Capstone projects for the AI/ML course"
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.11,<3.14"
 dependencies = [
     "catboost>=1.2.10",
     "joblib>=1.5.3",
